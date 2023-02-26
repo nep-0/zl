@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <h3>考试语音指令播放器</h3>
+    <audio id="p1">
+        <source src="./sound/p1.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="p2">
+        <source src="./sound/p2.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="p3">
+        <source src="./sound/p3.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="p4">
+        <source src="./sound/p4.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="p5">
+        <source src="./sound/p5.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="p5w">
+        <source src="./sound/p5w.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="p6">
+        <source src="./sound/p6.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="p7">
+        <source src="./sound/p7.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="p8">
+        <source src="./sound/p8.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="p9">
+        <source src="./sound/p9.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="p10">
+        <source src="./sound/p10.mp3" type="audio/mpeg">
+    </audio>
+    <fieldset>
+        <legend>开始答题时间（24小时制）</legend>
+        <input id="start" value="15:20" type="time"></input><br><br>
+        <button onclick="setStart(2)">2分钟后</button>
+        <button onclick="setStart(6)">6分钟后</button>
+        <button onclick="setStart(12)">12分钟后</button>
+        <button onclick="setStart('09:00')">9:00</button>
+        <button onclick="setStart('14:10')">14:10</button>
+        <button onclick="setStart('15:00')">15:00</button>
+        <button onclick="setStart('15:20')">15:20</button>
+        <button onclick="setStart('18:20')">18:20</button><br>
+    </fieldset>
+    <br>
+    <fieldset>
+        <legend>考试时长（分钟）</legend>
+        <button onclick="setDuration(Number(duration.value)-10)">-10</button>
+        <button onclick="setDuration(Number(duration.value)-5)">-5</button>
+        <input id="duration" value="120"></input>
+        <button onclick="setDuration(Number(duration.value)+5)">+5</button>
+        <button onclick="setDuration(Number(duration.value)+10)">+10</button>
+        <br><br>
+        <button onclick="setDuration(60)">60</button>
+        <button onclick="setDuration(90)">90</button>
+        <button onclick="setDuration(120)">120</button>
+        <button onclick="setDuration(150)">150</button><br>
+    </fieldset>
+    <br>
+    <fieldset>
+        <legend>音频选择</legend>
+        <input id="p1c" name="p1" type="checkbox">p1 - 进入考场</input><br>
+        <input id="p2c" name="p2" type="checkbox">p2 - 验证身份</input><br>
+        <input id="p3c" name="p3" type="checkbox" checked>p3 - 发答题卡</input><br>
+        <input id="p4c" name="p4" type="checkbox" checked>p4 - 核对挂钟</input><br>
+        <input id="p5c" name="p5" type="checkbox" onclick="p5wc.checked=false" checked>p5 - 开试卷袋</input><br>
+        <input id="p5wc" name="p5" type="checkbox" onclick="p5c.checked=false">p5w - 开试卷袋（外语）</input><br>
+        <input id="p6c" name="p6" type="checkbox" checked>p6 - 发试卷</input><br>
+        <input id="p7c" name="p7" type="checkbox" checked>p7 - 开始答题</input><br>
+        <input id="p8c" name="p8" type="checkbox" checked>p8 - 剩 30 分钟</input><br>
+        <input id="p9c" name="p9" type="checkbox" checked>p9 - 剩 15 分钟</input><br>
+        <input id="p10c" name="p10" type="checkbox" checked>p10 - 停止答题</input><br>
+    </fieldset>
+    <br>
+    
+    <button onclick="launch()" id="launch">启动</button>
+    <script>
+    start=document.querySelector("#start")
+    duration=document.querySelector("#duration")
+    
+    p1=document.querySelector("#p1")   // enter
+    p2=document.querySelector("#p2")   // id
+    p3=document.querySelector("#p3")   // card
+    p4=document.querySelector("#p4")   // clock
+    p5=document.querySelector("#p5")   // reveal
+    p5w=document.querySelector("#p5w") // reveal
+    p6=document.querySelector("#p6")   // paper
+    p7=document.querySelector("#p7")   // start
+    p8=document.querySelector("#p8")   // 30 min
+    p9=document.querySelector("#p9")   // 15 min
+    p10=document.querySelector("#p10") // end
+    
+    p1c=document.querySelector("#p1c")   // enter
+    p2c=document.querySelector("#p2c")   // id
+    p3c=document.querySelector("#p3c")   // card
+    p4c=document.querySelector("#p4c")   // clock
+    p5c=document.querySelector("#p5c")   // reveal
+    p5wc=document.querySelector("#p5wc") // reveal
+    p6c=document.querySelector("#p6c")   // paper
+    p7c=document.querySelector("#p7c")   // start
+    p8c=document.querySelector("#p8c")   // 30 min
+    p9c=document.querySelector("#p9c")   // 15 min
+    p10c=document.querySelector("#p10c") // end
+    
+    button=document.querySelector("#launch")
+    
+    function setStart(a) {
+      if(a==2 || a==6 || a==12) {
+        now=new Date()
+        if(now.getMinutes()+a>=60) {
+          start.value=checkTime(String(now.getHours()+1))+":"+checkTime(String(now.getMinutes()+a-60))
+        } else {
+          start.value=checkTime(now.getHours())+":"+checkTime(String(now.getMinutes()+a))
+        }
+        return
+      }
+      start.value=a
+    }
+    
+    function setDuration(a) {
+      duration.value=a
+    }
+    
+    function launch() {
+      button.disabled=true
+      startTimer()
+      
+      now=new Date()
+      startTime=new Date(now.getYear()+1900,now.getMonth(),now.getDate(),Number(start.value.split(":")[0]),Number(start.value.split(":")[1]))
+      endTime=new Date(startTime.valueOf()+Number(duration.value)*60*1000)
+      
+      if(startTime.valueOf()-50*60*1000>=now.valueOf() && p1c.checked){
+        setTimeout(function() {
+          p1.currentTime=0
+          p1.play()
+        },startTime.valueOf()-50*60*1000-now.valueOf())
+      }
+      
+      if(startTime.valueOf()-36*60*1000>=now.valueOf() && p2c.checked){
+        setTimeout(function() {
+          p2.currentTime=0
+          p2.play()
+        },startTime.valueOf()-36*60*1000-now.valueOf())
+      }
+      
+      if(startTime.valueOf()-15*60*1000>=now.valueOf() && p3c.checked){
+        setTimeout(function() {
+          p3.currentTime=0
+          p3.play()
+        },startTime.valueOf()-15*60*1000-now.valueOf())
+      }
+      
+      if(startTime.valueOf()-11*60*1000>=now.valueOf() && p4c.checked){
+        setTimeout(function() {
+          p4.currentTime=0
+          p4.play()
+        },startTime.valueOf()-11*60*1000-now.valueOf())
+      }
+      
+      if(startTime.valueOf()-10*60*1000>=now.valueOf() && p5c.checked){
+        setTimeout(function() {
+          p5.currentTime=0
+          p5.play()
+        },startTime.valueOf()-10*60*1000-now.valueOf())
+      }
+      
+      if(startTime.valueOf()-10*60*1000>=now.valueOf() && p5wc.checked){
+        setTimeout(function() {
+          p5w.currentTime=0
+          p5w.play()
+        },startTime.valueOf()-10*60*1000-now.valueOf())
+      }
+      
+      if(startTime.valueOf()-5*60*1000>=now.valueOf() && p6c.checked){
+        setTimeout(function() {
+          p6.currentTime=0
+          p6.play()
+        },startTime.valueOf()-5*60*1000-now.valueOf())
+      }
+      
+      if(startTime.valueOf()>=now.valueOf() && p7c.checked){
+        setTimeout(function() {
+          p7.currentTime=0
+          p7.play()
+        },startTime.valueOf()-now.valueOf())
+      }
+      
+      if(endTime.valueOf()-30*60*1000>=now.valueOf() && p8c.checked){
+        setTimeout(function() {
+          p8.currentTime=0
+          p8.play()
+        },endTime.valueOf()-30*60*1000-now.valueOf())
+      }
+      
+      if(endTime.valueOf()-15*60*1000>=now.valueOf() && p9c.checked){
+        setTimeout(function() {
+          p9.currentTime=0
+          p9.play()
+        },endTime.valueOf()-15*60*1000-now.valueOf())
+      }
+      
+      if(endTime.valueOf()>=now.valueOf() && p10c.checked){
+        setTimeout(function() {
+          p10.currentTime=0
+          p10.play()
+        },endTime.valueOf()-now.valueOf())
+      } 
+    }
+    
+    function startTimer(){
+	    var today=new Date();
+	    var h=today.getHours();
+	    var m=today.getMinutes();
+	    var s=today.getSeconds();
+	    m=checkTime(m);
+	    s=checkTime(s);
+	    button.innerHTML="运行中 当前时间 "+h+":"+m+":"+s;
+	    t=setTimeout(function(){startTimer()},500);
+    }
+    function checkTime(i){
+	    if (i<10){
+		    i="0" + i;
+	    }
+	    return i;
+    }
+    </script>
+</body>
+</html>
