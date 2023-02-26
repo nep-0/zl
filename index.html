@@ -33,6 +33,8 @@
     <audio id="p7">
         <source src="./sound/p7.mp3" type="audio/mpeg">
     </audio>
+    <audio id="listening" src="">
+    </audio>
     <audio id="p8">
         <source src="./sound/p8.mp3" type="audio/mpeg">
     </audio>
@@ -44,50 +46,51 @@
     </audio>
     <fieldset>
         <legend>开始答题时间（24小时制）</legend>
-        <input id="start" value="15:20" type="time" onchange="calcTime()"></input><br><br>
-        <button onclick="setStart(2)">2分钟后</button>
-        <button onclick="setStart(6)">6分钟后</button>
-        <button onclick="setStart(12)">12分钟后</button>
-        <button onclick="setStart('09:00')">9:00</button>
-        <button onclick="setStart('14:10')">14:10</button>
-        <button onclick="setStart('15:00')">15:00</button>
-        <button onclick="setStart('15:20')">15:20</button>
-        <button onclick="setStart('18:20')">18:20</button><br>
+        <input class="field" id="start" value="15:20" type="time" onchange="calcTime()"></input><br><br>
+        <button class="field" onclick="setStart(2)">2分钟后</button>
+        <button class="field" onclick="setStart(6)">6分钟后</button>
+        <button class="field" onclick="setStart(12)">12分钟后</button>
+        <button class="field" onclick="setStart('09:00')">9:00</button>
+        <button class="field" onclick="setStart('14:10')">14:10</button>
+        <button class="field" onclick="setStart('15:00')">15:00</button>
+        <button class="field" onclick="setStart('15:20')">15:20</button>
+        <button class="field" onclick="setStart('18:20')">18:20</button><br>
     </fieldset>
     <br>
     <fieldset>
         <legend>考试时长（分钟）</legend>
-        <button onclick="setDuration(Number(duration.value)-10)">-10</button>
-        <button onclick="setDuration(Number(duration.value)-5)">-5</button>
-        <input id="duration" value="120" onchange="calcTime()"></input>
-        <button onclick="setDuration(Number(duration.value)+5)">+5</button>
-        <button onclick="setDuration(Number(duration.value)+10)">+10</button>
+        <button class="field" onclick="setDuration(Number(duration.value)-10)">-10</button>
+        <button class="field" onclick="setDuration(Number(duration.value)-5)">-5</button>
+        <input class="field" id="duration" value="120" onchange="calcTime()"></input>
+        <button class="field" onclick="setDuration(Number(duration.value)+5)">+5</button>
+        <button class="field" onclick="setDuration(Number(duration.value)+10)">+10</button>
         <br><br>
-        <button onclick="setDuration(60)">60</button>
-        <button onclick="setDuration(90)">90</button>
-        <button onclick="setDuration(120)">120</button>
-        <button onclick="setDuration(150)">150</button><br>
+        <button class="field" onclick="setDuration(60)">60</button>
+        <button class="field" onclick="setDuration(90)">90</button>
+        <button class="field" onclick="setDuration(120)">120</button>
+        <button class="field" onclick="setDuration(150)">150</button><br>
     </fieldset>
     <br>
     <fieldset>
         <legend>音频选择</legend>
         <table>
-            <tr><td><input id="p1c" name="p1" type="checkbox">p1 - 进入考场</input></td><td id="p1t"></td></tr>
-            <tr><td><input id="p2c" name="p2" type="checkbox">p2 - 验证身份</input></td><td id="p2t"></td></tr>
-            <tr><td><input id="p3c" name="p3" type="checkbox" checked>p3 - 发答题卡</input></td><td id="p3t"></td></tr>
-            <tr><td><input id="p4c" name="p4" type="checkbox" checked>p4 - 核对挂钟</input></td><td id="p4t"></td></tr>
-            <tr><td><input id="p5c" name="p5" type="checkbox" onclick="p5wc.checked=false" checked>p5 - 开试卷袋</input></td><td id="p5t"></td></tr>
-            <tr><td><input id="p5wc" name="p5" type="checkbox" onclick="p5c.checked=false">p5w - 开试卷袋（外语）</input></td><td id="p5wt"></td></tr>
-            <tr><td><input id="p6c" name="p6" type="checkbox" checked>p6 - 发试卷</input></td><td id="p6t"></td></tr>
-            <tr><td><input id="p7c" name="p7" type="checkbox" checked>p7 - 开始答题</input></td><td id="p7t"></td></tr>
-            <tr><td><input id="p8c" name="p8" type="checkbox" checked>p8 - 剩 30 分钟</input></td><td id="p8t"></td></tr>
-            <tr><td><input id="p9c" name="p9" type="checkbox" checked>p9 - 剩 15 分钟</input></td><td id="p9t"></td></tr>
-            <tr><td><input id="p10c" name="p10" type="checkbox" checked>p10 - 停止答题</input></td><td id="p10t"></td></tr>
+            <tr><td><input class="field" id="p1c" name="p1" type="checkbox">p1 - 进入考场</input></td><td id="p1t"></td></tr>
+            <tr><td><input class="field" id="p2c" name="p2" type="checkbox">p2 - 验证身份</input></td><td id="p2t"></td></tr>
+            <tr><td><input class="field" id="p3c" name="p3" type="checkbox" checked>p3 - 发答题卡</input></td><td id="p3t"></td></tr>
+            <tr><td><input class="field" id="p4c" name="p4" type="checkbox" checked>p4 - 核对挂钟</input></td><td id="p4t"></td></tr>
+            <tr><td><input class="field" id="p5c" name="p5" type="checkbox" onclick="p5wc.checked=false" checked>p5 - 开试卷袋</input></td><td id="p5t"></td></tr>
+            <tr><td><input class="field" id="p5wc" name="p5" type="checkbox" onclick="p5c.checked=false">p5w - 开试卷袋（外语）</input></td><td id="p5wt"></td></tr>
+            <tr><td><input class="field" id="p6c" name="p6" type="checkbox" checked>p6 - 发试卷</input></td><td id="p6t"></td></tr>
+            <tr><td><input class="field" id="p7c" name="p7" type="checkbox" checked>p7 - 开始答题</input></td><td id="p7t"></td></tr>
+            <tr><td><input class="field" id="listeningc" name="listening" type="checkbox" disabled>听力音频</input><input class="field" id="file" type="file" onchange="setSrc()"></input></td><td id="listeningt"></td></tr>
+            <tr><td><input class="field" id="p8c" name="p8" type="checkbox" checked>p8 - 剩 30 分钟</input></td><td id="p8t"></td></tr>
+            <tr><td><input class="field" id="p9c" name="p9" type="checkbox" checked>p9 - 剩 15 分钟</input></td><td id="p9t"></td></tr>
+            <tr><td><input class="field" id="p10c" name="p10" type="checkbox" checked>p10 - 停止答题</input></td><td id="p10t"></td></tr>
         </table>
     </fieldset>
     <br>
     
-    <button onclick="launch()" id="launch">启动</button>
+    <button class="field" onclick="launch()" id="launch">启动</button>
     <script>
     start=document.querySelector("#start")
     duration=document.querySelector("#duration")
@@ -100,6 +103,7 @@
     p5w=document.querySelector("#p5w") // reveal
     p6=document.querySelector("#p6")   // paper
     p7=document.querySelector("#p7")   // start
+    listening=document.querySelector("#listening")   // listening
     p8=document.querySelector("#p8")   // 30 min
     p9=document.querySelector("#p9")   // 15 min
     p10=document.querySelector("#p10") // end
@@ -112,6 +116,7 @@
     p5wc=document.querySelector("#p5wc") // reveal
     p6c=document.querySelector("#p6c")   // paper
     p7c=document.querySelector("#p7c")   // start
+    listeningc=document.querySelector("#listeningc")   // listening
     p8c=document.querySelector("#p8c")   // 30 min
     p9c=document.querySelector("#p9c")   // 15 min
     p10c=document.querySelector("#p10c") // end
@@ -139,7 +144,7 @@
     }
     
     function launch() {
-      button.disabled=true
+      disableFields()
       startTimer()
       
       now=new Date()
@@ -202,6 +207,13 @@
         },startTime.valueOf()-now.valueOf())
       }
       
+      if(startTime.valueOf()+60*1000>=now.valueOf() && listeningc.checked){
+        setTimeout(function() {
+          listening.currentTime=0
+          listening.play()
+        },startTime.valueOf()+60*1000-now.valueOf())
+      }
+      
       if(endTime.valueOf()-30*60*1000>=now.valueOf() && p8c.checked){
         setTimeout(function() {
           p8.currentTime=0
@@ -254,6 +266,7 @@
       p5wt=document.querySelector("#p5wt") // reveal
       p6t=document.querySelector("#p6t")   // paper
       p7t=document.querySelector("#p7t")   // start
+      listeningt=document.querySelector("#listeningt")   // listening
       p8t=document.querySelector("#p8t")   // 30 min
       p9t=document.querySelector("#p9t")   // 15 min
       p10t=document.querySelector("#p10t") // end
@@ -266,6 +279,7 @@
       p5wtime = new Date(startTime.valueOf()-10*60*1000)
       p6time = new Date(startTime.valueOf()-5*60*1000)
       p7time = new Date(startTime.valueOf())
+      listeningtime = new Date(startTime.valueOf()+60*1000)
       p8time = new Date(endTime.valueOf()-30*60*1000)
       p9time = new Date(endTime.valueOf()-15*60*1000)
       p10time = new Date(endTime.valueOf())
@@ -278,11 +292,37 @@
       p5wt.innerHTML=p5wtime.toLocaleTimeString()
       p6t.innerHTML=p6time.toLocaleTimeString()
       p7t.innerHTML=p7time.toLocaleTimeString()
+      listeningt.innerHTML=listeningtime.toLocaleTimeString()
       p8t.innerHTML=p8time.toLocaleTimeString()
       p9t.innerHTML=p9time.toLocaleTimeString()
       p10t.innerHTML=p10time.toLocaleTimeString()
-      console.log(123)
     }
+    
+    function disableFields() {
+      fields=document.querySelectorAll(".field")
+      for(i=0;i<fields.length;i++) {
+        fields[i].disabled=true
+      }
+    }
+    
+    function setSrc() {
+      listening=document.querySelector("#listening")
+      file=document.querySelector("#file").files[0]
+      url=URL.createObjectURL(file)
+      
+      listeningc=document.querySelector("#listeningc")
+      listening.src=url
+      listeningc.checked=true
+      listeningc.disabled=false
+    }
+    
+    calcTime()
+    uploader=document.querySelector("#file")
+    uploader.outerHTML=uploader.outerHTML
+    
+    listeningc=document.querySelector("#listeningc")
+    listeningc.checked=false
     </script>
 </body>
 </html>
+
